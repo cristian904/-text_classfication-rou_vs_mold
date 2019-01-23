@@ -1,0 +1,15 @@
+#dialect
+No of samples: 21719
+Label 2 : 11751
+Label 1 : 9968
+Mean no of words: 308.1231640499102
+
+#category
+No of samples: 21719
+Label 3 : 5910
+Label 4 : 1890
+Label 5 : 3899
+Label 6 : 3014
+Label 2 : 5522
+Label 1 : 1484
+Mean no of words: 308.1231640499102

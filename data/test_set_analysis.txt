@@ -1,0 +1,15 @@
+#diaclect
+No of samples: 5924
+Label 1 : 2719
+Label 2 : 3205
+Mean no of words: 310.676063470628
+
+#category
+No of samples: 5924
+Label 3 : 1612
+Label 5 : 1064
+Label 4 : 515
+Label 1 : 404
+Label 2 : 1506
+Label 6 : 823
+Mean no of words: 310.676063470628
