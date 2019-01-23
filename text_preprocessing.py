@@ -19,7 +19,7 @@ class Preprocessing:
         return text
 
     def preprocessing(self,  text):
-        pipeline = [self.remove_punctuation]
+        pipeline = []
         for f in pipeline:
             text = f(text)
         return text
