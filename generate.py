@@ -9,7 +9,7 @@ class Representation(object):
     @staticmethod
     def get_representation(type):
         if type == "bow":
-            return CountVectorizer()
+            return CountVectorizer(ngram_range=(1, 3))
         if type == "tf-idf":
             return TfidfVectorizer()
         if type == "fasttext":
