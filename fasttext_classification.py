@@ -1,8 +1,8 @@
 import fastText as ft
 import pandas as pd
-from text_preprocessing import Preprocessing
+from Preprocessor import Preprocessor
 
-preprocessing = Preprocessing()
+preprocessing = Preprocessor()
 df = pd.read_excel("./data/train/dialect_train.xlsx")
 with open("./data/fasttext_input/train.txt", "w", encoding="utf-8") as f:
     df.apply(lambda x: f.write("__label__"+str(x['Label']) + " " + preprocessing.preprocessing(x['Text'])+"\n"), axis=1)

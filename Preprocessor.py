@@ -1,6 +1,6 @@
 from string import punctuation
 
-class Preprocessing:
+class Preprocessor:
 
     def __init__(self):
         self.stopwords = list(map(lambda x: x.strip(), open("./data/ro_stopwords.txt", "r", encoding="utf-8").readlines()))
@@ -18,8 +18,12 @@ class Preprocessing:
             text = text.replace(punct, "")
         return text
 
-    def preprocessing(self,  text):
+    def preprocessing(self,  text, types):
         pipeline = []
+        if "stopwords" in types:
+            pipeline.append(self.remove_stopword)
+        if "punctuation" in types:
+            pipeline.append(self.remove_punctuation)
         for f in pipeline:
             text = f(text)
         return text
