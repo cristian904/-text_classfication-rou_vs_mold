@@ -1,13 +1,15 @@
 from keras.models import Sequential
 from keras.layers import GRU, Embedding, Dense
+from keras.preprocessing.text import Tokenizer
+from generate import LoadData, Representation
+import numpy as np
 from Preprocessor import Preprocessor
 DROPOUT = 0.2
 MAX_SEQUENCE_LENGTH = 1000
 BATCH_SIZE = 100
 EPOCHS = 15
+NCLASSES = 2
 
-word_dict = {}
-preprop = Preprocessor()
 
 def create_RNN_model(X_train, y_train, nClasses, DROPOUT, MAX_SEQUENCE_LENGTH, embeddings):
     model = Sequential()
@@ -20,10 +22,21 @@ def create_RNN_model(X_train, y_train, nClasses, DROPOUT, MAX_SEQUENCE_LENGTH, e
     model.fit(X_train, y_train, epochs=EPOCHS, batch_size=BATCH_SIZE)
     return model
 
-def create_embeddings(X_train):
-    X_train = list(map(lambda x: preprop.preprocessing(x), X_train))
-    return X_train
+def create_embeddings(X_train, word_dict):
+    representation = Representation.get_representation("fasttext")
+    representation.fit(X_train)
+    embeddings = np.array(np.array(representation.word_embeddings(word_dict.keys())))
+    return embeddings
 
 
-# model = create_RNN_model(X_train, y_train, nClasses, DROPOUT, MAX_SEQUENCE_LENGTH, embeddings)
-# scores = model.evaluate(X_test, y_test)
+X_train, y_train, X_test, y_test = LoadData.load_data("dialect")
+tokenizer = Tokenizer(num_words=1000)
+tokenizer.fit_on_texts(X_train)
+X_train_tokenized = tokenizer.texts_to_matrix(X_train)
+word_dict = tokenizer.word_index
+embeddings = create_embeddings(X_train, word_dict)
+X_test_tokenized = tokenizer.texts_to_matrix(X_train)
+
+model = create_RNN_model(X_train_tokenized, y_train, NCLASSES, DROPOUT, MAX_SEQUENCE_LENGTH, embeddings)
+scores = model.evaluate(X_test_tokenized, y_test)
+print(scores)

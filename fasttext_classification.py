@@ -5,7 +5,7 @@ from Preprocessor import Preprocessor
 preprocessing = Preprocessor()
 df = pd.read_excel("./data/train/dialect_train.xlsx")
 with open("./data/fasttext_input/train.txt", "w", encoding="utf-8") as f:
-    df.apply(lambda x: f.write("__label__"+str(x['Label']) + " " + preprocessing.preprocessing(x['Text'])+"\n"), axis=1)
+    df.apply(lambda x: f.write("__label__"+str(x['Label']) + " " + preprocessing.preprocessing(x['Text'], ["punctuation"])+"\n"), axis=1)
 
 #best params: worgNgrams 3, minCount 1, epochs 50
 # for params in [[2, 2, 50], [3, 2, 50], [2, 1, 50], [3, 1, 50], [2, 2, 20], [3, 2, 20], [2, 1, 20], [3, 1, 20]]:
